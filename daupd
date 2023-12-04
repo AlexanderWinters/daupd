@@ -1,0 +1,60 @@
+#!/bin/bash
+echo -e "Welcome to Docker service auto-updater\n"
+echo -e "I use \"docker compose ls\" to find dockers. It is recommended to check that first to make sure the names match"
+echo -e "This script only works with containers deployed with docker compose and NOT docker run\n"
+
+# Prompt for docker name
+read -p "Enter the Docker Compose project name to check: " name
+
+# Get the Docker Compose file path associated with the project
+compose_file_path=$(docker-compose ls --filter "Name=$name" --format json | awk -F',' '{print $3}' | awk -F'"' '{print $4}')
+
+# Check if a docker-compose.yml file was found
+if [ -n "$compose_file_path" ]; then
+    echo "Docker Compose project '$name' is associated with Docker Compose file: $compose_file_path"
+else
+    echo "Unable to find the Docker Compose file for Docker Compose project '$name'."
+    exit
+fi
+
+# Create script that will run the update
+echo -e "\nCreating script..."
+if [ -d ~/scripts/docker_updates ]
+then 
+  echo "Path exists"
+else 
+  echo "Path doesn't exist. Creating..."
+  mkdir ~/scripts/docker_updates
+fi
+echo -e "cd $compose_file_path\ndocker compose pull\ndocker compose up -d" > ~/scripts/docker_updates/"$name"_update.sh
+
+echo "Script ready"
+
+#Update automation
+echo -e "\nDo you want to use crontab to automate the update?"
+select yn in "Yes" "No"
+do
+  case $yn in
+    Yes ) break;;
+    No ) exit;;
+  esac
+done 
+
+#Update crontab
+echo -e "\nHow often should crontab run the update?"
+select timer in "daily" "weekly" "monthly" "manual"
+do 
+  case $timer in 
+    daily ) sch="0 0 * * *"; break;;
+    weekly ) sch="0 0 * * 5"; break;;
+    monthly ) sch="0 0 1 * *"; break;;
+    manual ) read -p "Enter cron expression. WARNING! Won't work if not using the correct format: " sch; break;;
+  esac
+done
+echo -e "\nYou have selected $timer"
+(crontab -l ; echo "$sch ~/scripts/docker_updates/"$name"_update.sh") | crontab -
+sleep 1
+echo -e "\nThis is your current crontab:"
+crontab -l
+echo -e "\nDone!"
+
