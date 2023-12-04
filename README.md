@@ -26,11 +26,11 @@ If you want to run it from anywhere in CLI, add it to `/usr/local/bin`, or to `$
 
 
 ## Future Plans
-- Run the script without any user input.
-- Find a way to upload it to package repositories.
-- Have the script install itself to `/usr/local/bin` so it always runs from anywhere
-- Look into Mac and Windows version (theoretically it should already work on Mac and Windows WSL)
-- Allow for other types of containers, not just docker. 
-- Maybe dockerize it (doesn't make much sense now)
-- More polish
-- Maybe GUI
+- [x] Run the script without any user input.
+- [] Find a way to upload it to package repositories.
+- [] Have the script install itself to `/usr/local/bin` so it always runs from anywhere
+- [] Look into Mac and Windows version (theoretically it should already work on Mac and Windows WSL)
+- [] Allow for other types of containers, not just docker. 
+- [] Maybe dockerize it (doesn't make much sense now)
+- [] More polish
+- [] Maybe GUI
