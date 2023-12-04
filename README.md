@@ -1,5 +1,6 @@
 # daupd
-Docker container Auto UPDate
+**Docker container Auto UPDate**
+
 This is a simple bash I create to create an extremely simple (and dumb) script that pulls and applies updates to docker container ran with docker-compose. It can also add the scripts to crontab if you want.
 
 >[!IMPORTANT]
