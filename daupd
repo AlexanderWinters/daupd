@@ -16,6 +16,35 @@ else
     echo "Unable to find the Docker Compose file for Docker Compose project '$name'."
     exit
 fi
+# Run the script without any input
+echo "Do you want to run with defaults"
+select yn in "Yes" "No"
+do 
+  case $yn in 
+    Yes ) break ;;
+    No ) break ;;
+  esac
+done
+if [[ $yn =~ "Yes" ]]
+then 
+  path_to_save="/home/$USER/scripts/docker_updates"
+  if [ -e "$path_to_save" ]
+  then
+    echo -e "\nSaving to default path ($path_to_save)..."
+  else 
+    echo -e "\nCreating default path ($path_to_save)..."
+    mkdir $path_to_save || echo "Can't create path" ; exit
+  fi
+  echo "Creating script... "
+  echo -e "cd $compose_file_path\ndocker compose pull\ndocker compose up -d" > "$path_to_save"/"$name"_update.sh
+  sch="0 0 * * 5"
+  echo "Adding crontab task... "
+  (crontab -l ; echo "$sch ~/scripts/docker_updates/"$name"_update.sh") | crontab -
+  echo -e "\nDone!"
+  exit
+else 
+  :
+fi
 
 # Create script that will run the update
 echo -e "\nWhere do you want to save the script?"
