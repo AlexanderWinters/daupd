@@ -18,13 +18,29 @@ else
 fi
 
 # Create script that will run the update
+echo -e "\nWhere do you want to save the script?"
+select place in "default" "manual"
+do 
+  case $place in 
+    default ) path_to_save="~/scripts/docker_updates" 
+      if [-d $path_to_save]
+      then
+        echo "Saving to default..."
+      else 
+        echo "Creating default path..."
+        mkdir $path_to_save
+      break;;
+    manual ) read -p "Enter the path: " path_to_save; break;;
+  esac
+done
+
 echo -e "\nCreating script..."
-if [ -d ~/scripts/docker_updates ]
-then 
-  echo "Path exists"
-else 
-  echo "Path doesn't exist. Creating..."
-  mkdir ~/scripts/docker_updates
+# if [ -d ~/scripts/docker_updates ]
+# then 
+#   echo "Path exists"
+# else 
+#   echo "Path doesn't exist. Creating..."
+#   mkdir ~/scripts/docker_updates
 fi
 echo -e "cd $compose_file_path\ndocker compose pull\ndocker compose up -d" > ~/scripts/docker_updates/"$name"_update.sh
 
