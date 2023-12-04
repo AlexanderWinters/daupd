@@ -25,12 +25,21 @@ do
     default ) path_to_save="~/scripts/docker_updates" 
       if [-d $path_to_save]
       then
-        echo "Saving to default..."
+        echo "Saving to path..."
+      else 
+        echo "Creating path..."
+        mkdir $path_to_save || echo "Can't create path" ; exit;;
+      fi
+      break;;
+    manual ) read -p "Enter the path: " path_to_save
+      if [-d $path_to_save]
+      then
+        echo "Saving to path..."
       else 
         echo "Creating default path..."
         mkdir $path_to_save
+      fi
       break;;
-    manual ) read -p "Enter the path: " path_to_save; break;;
   esac
 done
 
@@ -42,7 +51,7 @@ echo -e "\nCreating script..."
 #   echo "Path doesn't exist. Creating..."
 #   mkdir ~/scripts/docker_updates
 fi
-echo -e "cd $compose_file_path\ndocker compose pull\ndocker compose up -d" > ~/scripts/docker_updates/"$name"_update.sh
+echo -e "cd $compose_file_path\ndocker compose pull\ndocker compose up -d" > "$path_to_save"/"$name"_update.sh
 
 echo "Script ready"
 
