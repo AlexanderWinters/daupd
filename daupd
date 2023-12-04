@@ -30,7 +30,7 @@ do
         echo "Creating path..."
         mkdir $path_to_save || echo "Can't create path" ; exit;;
       fi
-      break;;
+      break
     manual ) read -p "Enter the path: " path_to_save
       if [-d $path_to_save]
       then
@@ -39,7 +39,7 @@ do
         echo "Creating default path..."
         mkdir $path_to_save
       fi
-      break;;
+      break
   esac
 done
 
