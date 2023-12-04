@@ -17,7 +17,7 @@ else
     exit
 fi
 # Run the script without any input
-echo "Do you want to run with defaults"
+echo -e "\nDo you want to run with defaults"
 select yn in "Yes" "No"
 do 
   case $yn in 
