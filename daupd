@@ -1,7 +1,9 @@
 #!/bin/bash
-echo -e "Welcome to Docker service auto-updater\n"
-echo -e "I use \"docker compose ls\" to find dockers. It is recommended to check that first to make sure the names match"
-echo -e "This script only works with containers deployed with docker compose and NOT docker run\n"
+cat << EOF
+Welcome to Docker service auto-updater!
+Use docker compose ls to find services...
+
+EOF
 
 # Prompt for docker name
 read -p "Enter the Docker Compose project name to check: " name
