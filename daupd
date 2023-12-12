@@ -54,7 +54,7 @@ select place in "default" "manual"
 do 
   case $place in 
     default ) path_to_save="/home/$USER/scripts/docker_updates" ; break ;;
-    manual ) read -p "Enter the path (use full path): " path_to_save ; break ;;
+    manual ) read -p "Enter the path (use absolute path): " path_to_save ; break ;;
   esac
 done
 
