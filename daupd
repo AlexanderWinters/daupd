@@ -84,7 +84,7 @@ echo "Creating script..."
 #   echo "Path doesn't exist. Creating..."
 #   mkdir ~/scripts/docker_updates
 #fi
-echo -e "cd $compose_file_path\ndocker compose pull\ndocker compose up -d" > "$path_to_save"/"$name"_update.sh
+echo -e "docker compose -f $compose_file_path pull\ndocker compose -f $compose_file_path up -d" > "$path_to_save"/"$name"_update.sh
 
 echo "Script ready"
 
