@@ -35,7 +35,7 @@ then
     echo -e "\nSaving to default path ($path_to_save)..."
   else 
     echo -e "\nCreating default path ($path_to_save)..."
-    mkdir $path_to_save || echo "Can't create path" ; exit
+    mkdir $path_to_save || (echo "Can't create path" ; exit)
   fi
   echo "Creating script... "
   echo -e "docker compose -f $compose_file_path pull\ndocker compose -f $compose_file_path up -d" > "$path_to_save"/"$name"_update.sh
@@ -65,7 +65,7 @@ then
     echo -e "\nSaving to default path ($path_to_save)..."
   else 
     echo -e "\nCreating default path ($path_to_save)..."
-    mkdir $path_to_save || echo "Can't create path" ; exit
+    mkdir $path_to_save || (echo "Can't create path" ; exit)
   fi
 else
   if [ -e "$path_to_save" ]
@@ -73,7 +73,7 @@ else
     echo -e "\nSaving to path..."
   else 
     echo -e "\nCreating path..."
-    mkdir $path_to_save || echo "Can't create path" ; exit
+    mkdir $path_to_save || (echo "Can't create path" ; exit)
   fi
 fi
 echo "Creating script..."
