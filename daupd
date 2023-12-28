@@ -38,7 +38,7 @@ then
     mkdir $path_to_save || echo "Can't create path" ; exit
   fi
   echo "Creating script... "
-  echo -e "cd $compose_file_path\ndocker compose pull\ndocker compose up -d" > "$path_to_save"/"$name"_update.sh
+  echo -e "docker compose -f $compose_file_path pull\ndocker compose -f $compose_file_path up -d" > "$path_to_save"/"$name"_update.sh
   sch="0 0 * * 5"
   echo "Adding crontab task... "
   (crontab -l ; echo "$sch ~/scripts/docker_updates/"$name"_update.sh") | crontab -
